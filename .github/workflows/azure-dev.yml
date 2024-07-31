@@ -86,7 +86,4 @@ jobs:
           AZD_INITIAL_ENVIRONMENT_CONFIG: ${{ secrets.AZD_INITIAL_ENVIRONMENT_CONFIG }}
 
       - name: Deploy Application
-        run: |
-          pushd ./workshop
-          azd deploy --no-prompt
-          popd
+        run: azd deploy --no-prompt
