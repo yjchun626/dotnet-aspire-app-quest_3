@@ -492,3 +492,4 @@ bundle.js.*.txt
 # workshop*/
 z-demo*/
 .azure
+infra*/
