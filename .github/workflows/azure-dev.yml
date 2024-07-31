@@ -6,6 +6,10 @@ on:
     branches:
       - main
       - master
+    paths:
+      - "workshop/**/*"
+      - "frontend/**/*"
+      - "backend/**/*"
 
 # GitHub Actions workflow to deploy to Azure using azd
 # To configure required secrets for connecting to Azure, simply run `azd pipeline config`
@@ -40,13 +44,11 @@ jobs:
       - name: Update appsettings.json
         shell: pwsh
         run: |
-          pushd ./workshop
-          $appsettings = Get-Content -Path ./AspireYouTubeSummariser.AppHost/appsettings.json | ConvertFrom-Json
+          $appsettings = Get-Content -Path ./workshop/AspireYouTubeSummariser.AppHost/appsettings.json | ConvertFrom-Json
           $appsettings.OpenAI.Endpoint = "${{ secrets.AZURE_OPENAI_ENDPOINT }}"
           $appsettings.OpenAI.ApiKey = "${{ secrets.AZURE_OPENAI_API_KEY }}"
           $appsettings.OpenAI.DeploymentName = "${{ secrets.AZURE_OPENAI_DEPLOYMENT_NAME }}"
           $appsettings | ConvertTo-Json -Depth 100 | Out-File -FilePath ./workshop/AspireYouTubeSummariser.AppHost/appsettings.json -Encoding utf8 -Force
-          popd
 
       - name: Install azd
         uses: Azure/setup-azd@v1.0.0
@@ -75,13 +77,7 @@ jobs:
           AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
 
       - name: Provision Infrastructure
-        run: |
-          pushd ./workshop
-          azd provision --no-prompt
-          popd
+        run: azd provision --no-prompt
 
       - name: Deploy Application
-        run: |
-          pushd ./workshop
-          azd deploy --no-prompt
-          popd
+        run: azd deploy --no-prompt
