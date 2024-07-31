@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <ItemGroup>
-    <ProjectReference Include="..\AspireYouTubeSummariser.ServiceDefaults\AspireYouTubeSummariser.ServiceDefaults.csproj" />
+    <ProjectReference Include="..\..\workshop\AspireYouTubeSummariser.ServiceDefaults\AspireYouTubeSummariser.ServiceDefaults.csproj" />
   </ItemGroup>
 
   <ItemGroup>
